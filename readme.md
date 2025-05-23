@@ -1,4 +1,3 @@
-```markdown
 # Детекция цвета автомобиля
 
 Проект компьютерного зрения для определения цвета автомобиля с использованием YOLOv8 для детекции объектов, Segment Anything Model (SAM) для сегментации и кластеризации K-means для извлечения цветов. Включает веб-интерфейс Gradio для интерактивной демонстрации и FastAPI для программного доступа.
@@ -11,12 +10,6 @@
 - FastAPI-эндпоинт (`API.py`) для интеграции с другими приложениями.
 - Поддержка Docker для простого развёртывания.
 - Jupyter Notebook (`notebooks/ste_by_step_processing.ipynb`) с пошаговым объяснением пайплайна.
-
-## Требования
-- Python 3.10+
-- Docker (опционально, для контейнерного запуска)
-- ~4 ГБ оперативной памяти и ~3 ГБ на диске
-- Интернет для загрузки моделей (`yolov8n.pt`, `sam_vit_h.pth`)
 
 ## Установка
 
@@ -94,6 +87,6 @@ jupyter notebook notebooks/ste_by_step_processing.ipynb
 - `API.py`: FastAPI-эндпоинт.
 - `data/colors.csv`: База цветов (формат: `colorname,name,hex`).
 - `models/`: Папка для моделей YOLO и SAM (см. `models/README.md`).
-- `notebooks/ste_by_step_processing.ipynb`: Jupyter Notebook с разбором пайплайна.
+- `notebooks/step_by_step_processing.ipynb`: Jupyter Notebook с разбором пайплайна.
 - `requirements.txt`: Зависимости Python.
 - `Dockerfile`: Конфигурация Docker для контейнерного запуска.
