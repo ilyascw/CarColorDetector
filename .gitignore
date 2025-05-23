@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+cvvenv/
+
+# Virtual environment
+*.egg-info/
+pip-wheel-metadata/
+
+# Data (фотографии не заливаем)
+data/photos/
+
+# Docker
+docker/
+*.tar
+*.tar.gz
+
+# Models (слишком большие для GitHub)
+models/yolov8n.pt
+models/sam_vit_b_01ec64.pth
+
+# IDE and OS files
+.vscode/
+*.DS_Store
