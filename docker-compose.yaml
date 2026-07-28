@@ -1,0 +1,24 @@
+services:
+  api:
+    build: .
+    environment:
+      CAR_COLOR_DEVICE: ${CAR_COLOR_DEVICE:-cpu}
+      CAR_COLOR_YOLO_MODEL: /models/yolov8n.pt
+      CAR_COLOR_SAM_CHECKPOINT: /models/sam_vit_b_01ec64.pth
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/models:ro
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import json, urllib.request;
+          response = urllib.request.urlopen("http://127.0.0.1:8000/health");
+          assert json.load(response)["status"] == "ok"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 120s

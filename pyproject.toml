@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "car-color-detector"
+version = "1.0.0"
+description = "Computer-vision pipeline for detecting vehicles and estimating their dominant body colors"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.0,<3",
+    "opencv-python-headless>=4.10,<4.12",
+    "scikit-learn>=1.5,<2",
+]
+
+[project.optional-dependencies]
+api = [
+    "fastapi>=0.115,<1",
+    "python-multipart>=0.0.20,<1",
+    "uvicorn[standard]>=0.34,<1",
+]
+web = [
+    "gradio>=5.29,<6",
+]
+inference = [
+    "segment-anything @ git+https://github.com/facebookresearch/segment-anything.git@dca509fe793f601edb92606367a655c15ac00fdf",
+    "torch>=2.4,<3",
+    "torchvision>=0.19,<1",
+    "ultralytics>=8.3,<9",
+]
+research = [
+    "jupyterlab>=4.2,<5",
+    "matplotlib>=3.9,<4",
+]
+dev = [
+    "httpx>=0.28,<1",
+    "mypy==1.18.2",
+    "pytest>=8.3,<9",
+    "ruff==0.16.0",
+]
+
+[project.scripts]
+car-color-api = "car_color_detector.cli:run_api"
+car-color-web = "car_color_detector.cli:run_web"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+car_color_detector = ["data/*.csv", "py.typed"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "tests"]
+pretty = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = [
+    "cv2",
+    "gradio",
+    "segment_anything",
+    "sklearn.cluster",
+    "ultralytics",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "car_color_detector.inference",
+    "car_color_detector.web",
+]
+disallow_untyped_calls = false
+disable_error_code = ["attr-defined"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["B", "C4", "E", "F", "I", "PIE", "RUF", "SIM", "UP"]
+ignore = ["RUF001"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/car_color_detector/api.py" = ["B008"]
+"tests/**/*.py" = ["S101"]

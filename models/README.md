@@ -1,32 +1,47 @@
-# Инструкции по загрузке моделей
+# Model checkpoints
 
-Папка `models/` должна содержать две модели:
-1. **yolov8n.pt** (~6 МБ): YOLOv8 Nano для детекции автомобилей.
-2. **sam_vit_h.pth** (~375 МБ): Segment Anything Model (SAM) для сегментации.
+Веса моделей не входят в репозиторий и игнорируются Git.
 
-## Как загрузить
-1. **yolov8n.pt**:
-   - Скачайте с официального репозитория Ultralytics:
-     ```bash
-     wget https://github.com/ultralytics/assets/releases/download/v8.2.0/yolov8n.pt -O models/yolov8n.pt
-     ```
-   - Или установите `ultralytics` и используйте API:
-     ```python
-     from ultralytics import YOLO
-     model = YOLO("yolov8n.pt")  # Автоматически загрузит в ~/.cache/ultralytics
-     ```
-     Затем переместите в `models/yolov8n.pt`.
+## YOLOv8 Nano
 
-2. **sam_vit_h.pth**:
-   - Скачайте с официального репозитория SAM:
-     ```bash
-     wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth -O models/sam_vit_h.pth
-     ```
-   - Проверьте целостность (размер ~375 МБ):
-     ```bash
-     ls -lh models/sam_vit_h.pth
-     ```
+Проект сохраняет исходную конфигурацию исследования — `yolov8n.pt`.
+Ultralytics автоматически загрузит checkpoint при первом создании модели, если
+передать имя файла, либо его можно скачать явно:
 
-## Примечания
-- Убедитесь, что пути в `CarColorProcessor.py` или `app.py` указывают на `models/yolov8n.pt` и `models/sam_vit_h.pth`.
-- Если модели не загружены, запуск `app.py` или `API.py` выдаст ошибку `FileNotFoundError`.
+```bash
+curl -L \
+  https://github.com/ultralytics/assets/releases/download/v8.2.0/yolov8n.pt \
+  -o models/yolov8n.pt
+```
+
+## Segment Anything ViT-B
+
+Runtime настроен на более компактный вариант SAM ViT-B:
+
+```bash
+curl -L \
+  https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth \
+  -o models/sam_vit_b_01ec64.pth
+```
+
+Итоговая структура:
+
+```text
+models/
+├── README.md
+├── yolov8n.pt
+└── sam_vit_b_01ec64.pth
+```
+
+Для другого SAM-backbone одновременно измените
+`CAR_COLOR_SAM_CHECKPOINT` и `CAR_COLOR_SAM_MODEL_TYPE`.
+
+## Лицензии
+
+- Ultralytics распространяет open-source runtime и модели по AGPL-3.0 и
+  предлагает отдельную Enterprise License.
+- Segment Anything и опубликованные checkpoint-файлы распространяются по
+  Apache-2.0.
+
+Перед коммерческим использованием проверьте актуальные условия в исходных
+репозиториях разработчиков.

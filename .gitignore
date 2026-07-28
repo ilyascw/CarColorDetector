@@ -1,29 +1,31 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-cvvenv/
-
-# Virtual environment
+*.py[cod]
 *.egg-info/
-pip-wheel-metadata/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+build/
+dist/
 
-# Data (фотографии не заливаем)
+# Local configuration and runtime data
+.env
 data/photos/
 
-# Docker
-docker/
-*.tar
-*.tar.gz
+# Model weights
+models/*.pt
+models/*.pth
+models/*.onnx
 
-# Models (слишком большие для GitHub)
-models/yolov8n.pt
-models/sam_vit_b_01ec64.pth
+# Notebooks
+.ipynb_checkpoints/
 
 # IDE and OS files
+.DS_Store
+.idea/
 .vscode/
-*.DS_Store
+
+# Containers
+*.tar
+*.tar.gz
